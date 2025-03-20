@@ -6,22 +6,20 @@ app = Flask(__name__)
 app.secret_key = 'supersecretkey'  # 用于会话管理和闪现消息
 
 
-# 数据库连接函数
+
 def get_db():
     conn = sqlite3.connect('tasks.db')
     conn.row_factory = sqlite3.Row
     return conn
 
 
-# 初始化数据库
-# 初始化数据库
-# 数据库连接函数
+
 def get_db():
     conn = sqlite3.connect('tasks.db')
     conn.row_factory = sqlite3.Row
     return conn
 
-# 初始化数据库
+
 def init_db():
     try:
         conn = get_db()  # 获取数据库连接
@@ -59,8 +57,7 @@ def init_db():
     except Exception as e:
         print(f"Error initializing database: {e}")
 
-# 用户登录路由
-@app.route('/login', methods=['GET', 'POST'])
+
 def login():
     if request.method == 'POST':
         username = request.form['username']
@@ -82,7 +79,7 @@ def login():
     return render_template('login.html')
 
 
-# 用户登出路由
+
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
@@ -90,7 +87,7 @@ def logout():
     return redirect(url_for('login'))
 
 
-# 任务列表路由
+
 @app.route('/')
 def task_list():
     if 'user_id' not in session:
@@ -104,7 +101,7 @@ def task_list():
     return render_template('index.html', tasks=tasks)
 
 
-# 创建任务路由
+
 @app.route('/task/create', methods=['GET', 'POST'])
 def task_create():
     if 'user_id' not in session:
@@ -132,7 +129,7 @@ def task_create():
     return render_template('task_form.html')
 
 
-# 编辑任务路由
+
 @app.route('/task/edit/<int:task_id>', methods=['GET', 'POST'])
 def task_edit(task_id):
     if 'user_id' not in session:
@@ -169,7 +166,7 @@ def task_edit(task_id):
     return render_template('task_edit.html', task=task)
 
 
-# 删除任务路由
+
 @app.route('/task/delete/<int:task_id>', methods=['GET'])
 def task_delete(task_id):
     if 'user_id' not in session:
@@ -185,7 +182,7 @@ def task_delete(task_id):
     return redirect(url_for('task_list'))
 
 
-# 用户注册路由
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
