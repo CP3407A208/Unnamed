@@ -41,8 +41,12 @@ def init_db():
     conn.commit()
     conn.close()
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def index():
+    return render_template('index.html')  # 首页只显示跳转按钮
+
+@app.route('/qa', methods=['GET', 'POST'])
+def qa_page():
     answer = None
     if request.method == 'POST':
         question = request.form.get('question')
@@ -54,21 +58,26 @@ def index():
                 break
         if not answer:
             answer = "No information found"
-    return render_template('index.html', answer=answer)
+    return render_template('qa.html', answer=answer)  # 问答页面模板
 
-@app.route('/feedback', methods=['POST'])
-def feedback():
-    question = request.form.get('question')
-    contact = request.form.get('contact')
-    if question and contact:
-        conn = sqlite3.connect('students.db')
-        c = conn.cursor()
-        c.execute("INSERT INTO feedbacks (question, contact) VALUES (?,?)", (question, contact))
-        conn.commit()
-        conn.close()
-        return'successful submission'
-    return'submit failure'
+@app.route('/feedback', methods=['GET', 'POST'])
+def feedback_page():
+    feedback_status = None
+    if request.method == 'POST':
+        question = request.form.get('question')
+        contact = request.form.get('contact')
+        if question and contact:
+            conn = sqlite3.connect('students.db')
+            c = conn.cursor()
+            c.execute("INSERT INTO feedbacks (question, contact) VALUES (?,?)", (question, contact))
+            conn.commit()
+            conn.close()
+            feedback_status ='successful submission'
+        else:
+            feedback_status ='submit failure'
+    return render_template('feedback.html', feedback_status=feedback_status)  # 反馈页面模板
 
 if __name__ == '__main__':
     init_db()
     app.run(debug=True)
+

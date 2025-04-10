@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Feedback Service</title>
+    <style>
+        body {
+            background-image: url('https://studyinternational.com/wp-content/uploads/2023/07/JCU-Singapore-Campus-Main-Door.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+        }
+
+       .feedback-section {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="feedback-section">
+        <h2>problem feedback</h2>
+        <form method="post">
+            <label for="question">problem description：</label>
+            <textarea id="question" name="question" required></textarea><br>
+            <label for="contact">contact information：</label>
+            <input type="text" id="contact" name="contact" required><br>
+            <button type="submit">submit feedback</button>
+        </form>
+        {% if feedback_status %}
+        <p>{{ feedback_status }}</p>
+        {% endif %}
+    </div>
+</body>
+
+</html>

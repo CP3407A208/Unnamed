@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Q&A Service</title>
+    <style>
+        body {
+            background-image: url('https://studyinternational.com/wp-content/uploads/2023/07/JCU-Singapore-Campus-Main-Door.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+        }
+
+       .qa-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="qa-section">
+        <h1>Student Q&A service</h1>
+        <form method="post">
+            <label for="question">Please enter your question or student number：</label>
+            <input type="text" id="question" name="question" required>
+            <button type="submit">submit</button>
+        </form>
+        {% if answer %}
+        <p>answer：{{ answer }}</p>
+        {% endif %}
+    </div>
+</body>
+
+</html>
